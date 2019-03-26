@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <script src="main.js"></script>
+    <style>
+    body{
+        background: green;
+        width: 1300px;
+        margin-left: 50px;
+        margin-right: 50px;
+
+    }
+    .top{
+        width: 806px;
+        border: 1px solid;
+        height: 80px;
+        background-color: brown;
+
+    }
+    select{
+        width: 200px;
+        padding-left: 150px; 
+        margin-left: 150px;
+        margin-top: 10px;
+        height: 30px;
+    }
+    .left_container{
+        float: left;
+        width: 400px;
+        border: 2px solid yellow;
+        background-color: purple;
+        height:500px;
+
+    }
+    .right_container{
+        margi
+        float: left;
+        width: 400px;
+        border: 2px solid red;
+        background-color: red;
+        height: 500px;
+    }
+    
+    </style>
+</head>
+<body>
+    <div class="top">    
+        <select name="HYF" id="repo_HYF" aria-label="HYF Repositories">
+            <option  value=0>0</option>
+            <option  value=1>1</option>
+            <option  value=2>2</option>
+            <option  value=3>3</option>
+            <option  value=4>4</option>
+        
+        </select>
+    </div>
+
+    <div class="left_container">
+
+
+    </div>
+    <div class="right_container">
+
+    </div>
+
+    <script>
+    
+        const ourPromise=fetch('https://api.github.com/orgs/HackYourFuture/repos?per_page=100')
+        
+        .then((response) => response.json())
+        .then((responseJson) => {
+        console.log(responseJson);
+        })
+        .catch((error) => {
+                 console.log("reset client error-------",error);
+                 });
+            
+
+    
+    </script>
+</body>
+</html>
