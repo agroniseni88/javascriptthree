@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    
+
+    const example='hackyourfuture';
+    //2 function we can put inside the new promise promise and reject
+    const messagePromise=new Promise ((promise, reject)=>{
+        setTimeout(() => {
+            promise()
+            console.log('resolveeeee!');
+        }, 1000);
+
+
+        setTimeout(() => {
+            reject()
+            console.log('rejecteddddddddddd!!');
+        }, 3000);
+    })
+    console.log(messagePromise);
+    
+    messagePromise
+        .then(()=>{
+            console.log('resolved');
+        })
+        .catch(()=>{
+            console.log('rejected');
+
+        })
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,20 @@
+**********************************************************************************************
+web developer:
+
+Can be single page, where you static one static page.
+
+VAR global.
+LET inside function.
+CONST does not change.
+
+FOR ...IN to use inside object.
+ 
+
+API Application programming interface
+
+HTTP  GET POST.
+SPEECH Ask Command.
+
+HTTP: server rendered: SPA STATIC.
+
+FETCH is a promise. And how to fetch data from server also.

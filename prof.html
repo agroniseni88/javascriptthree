@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+
+<html>
+
+
+
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>HYF GitHub Repo Browser</title>
+
+  <link rel="stylesheet" href="./main.css">
+
+</head>
+<style>
+body {
+
+
+
+width: 768px;
+
+
+
+margin-left: auto;
+
+
+
+margin-right: auto;
+
+
+
+background-color: #f8f8f8;
+
+
+
+font-family: 'Roboto', sans-serif;
+
+
+
+color: rgb(0, 0, 0, 87%);
+
+
+
+margin-top: 0;
+
+
+
+margin: 0;
+
+
+
+}
+
+
+
+
+
+
+
+label {
+
+
+
+font-weight: bold;
+
+
+
+}
+
+
+
+
+
+
+
+.container {
+
+
+
+width: 768px;
+
+
+
+margin-left: auto;
+
+
+
+margin-right: auto;
+
+
+
+}
+
+
+
+
+
+
+
+#container {
+
+
+
+#main {
+
+
+
+display: flex;
+
+
+
+flex-direction: row;
+
+
+
+align-items: flex-start;
+
+@@ -18,10 +25,16 @@ body {
+
+
+
+body {
+
+
+
+    width: 100%;
+
+
+
+}
+
+
+
+#container {
+
+
+
+
+
+
+
+#main {
+
+
+
+    margin: 0;
+
+
+
+    flex-direction: column;
+
+
+
+    align-items: stretch;
+
+
+
+    width: 100%;
+
+
+
+}
+
+
+
+
+
+
+
+.left-div {
+
+
+
+    margin: 0 12px!important ;
+
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+@@ -61,12 +74,6 @@ h4 {
+
+
+
+margin-right: 16px;
+
+
+
+}
+
+
+
+
+
+
+
+@media (max-width: 767px) {
+
+
+
+.left-div {
+
+
+
+    margin: 0;
+
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+.contributor-list {
+
+
+
+list-style-type: none;
+
+
+
+padding: 0;
+
+
+@@ -122,25 +129,6 @@ h4 {
+
+
+
+border-radius: 4px;
+
+
+
+}
+
+
+
+
+
+
+
+table {
+
+
+
+table-layout: fixed;
+
+
+
+color: rgb(0, 0, 0, 81%);
+
+
+
+}
+
+
+
+
+
+
+
+td {
+
+
+
+vertical-align: top;
+
+
+
+}
+
+
+
+
+
+
+
+td:first-child {
+
+
+
+width: 100px;
+
+
+
+min-width: 100px;
+
+
+
+max-width: 100px;
+
+
+
+}
+
+
+
+
+
+
+
+td.label {
+
+
+
+font-weight: bold;
+
+
+
+}
+
+
+
+
+
+
+
+.whiteframe {
+
+
+
+margin-bottom: 8px;
+
+
+
+border: none;
+</style>
+
+
+<body>
+
+  <div id="root">
+
+    <header class="header">
+
+      <div class="container">
+
+        HYF Repositories
+
+        <select id="repo-select" class="repo-selector">
+
+          <option>Please choose a repository</option>
+
+        </select>
+
+      </div>
+
+    </header>
+
+    <div id="main" class="container">
+
+      <div class="left-div whiteframe repo-properties">
+
+        <div><label>Repository:</label> <span id="repo-name"></span></div>
+
+        <div><label>Description:</label> <span id="repo-description"></span></div>
+
+        <div><label>Forks:</label> <span id="repo-forks"></span></div>
+
+        <div><label>Updated:</label> <span id="repo-updated"></span></div>
+
+      </div>
+
+      <div class="right-div whiteframe" style="visibility: hidden">
+
+        <p class="contributor-header">Contributors</p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <script>
+  const REPOSITORIES_URL = 'https://api.github.com/orgs/HackYourFuture/repos?per_page=100';
+
+
+
+
+
+
+
+let repositories;
+
+
+
+const selectList = document.getElementById('repo-select');
+
+
+
+const repoSelectElement = document.getElementById('repo-select');
+
+
+
+
+
+
+
+function populateSelectList() {
+
+
+
+  repositories
+
+
+
+    .forEach((r) => {
+
+
+
+      const optionElement = document.createElement('option');
+
+
+
+      optionElement.text = r.name;
+
+
+
+      optionElement.value = r.name;
+
+
+
+      selectList.add(optionElement);
+
+
+
+      repoSelectElement.add(optionElement);
+
+
+
+    });
+
+
+
+}
+
+
+
+
+
+
+
+function selectIndex(index) {
+
+
+
+  selectList.selectedIndex = (index + 1);
+
+
+
+}
+
+
+
+
+
+
+
+function showSelectedRepoDetails() {
+
+
+
+  const selectedIndex = selectList.selectedIndex - 1;
+
+
+
+  // Account for the first 'Please choose...' option
+
+
+
+  const selectedIndex = repoSelectElement.selectedIndex - 1;
+
+
+
+  if (selectedIndex < 0) return; // Don't do anything upon selecting the 'Please choose...' option
+
+
+
+
+
+
+
+  const selectedRepo = repositories[selectedIndex];
+
+
+
+
+
+
+
+  document.getElementById('repo-name').innerHTML = selectedRepo.name;
+
+
+
+  document.getElementById('repo-description').innerHTML = selectedRepo.description;
+
+
+
+  document.getElementById('repo-forks').innerHTML = selectedRepo.forks;
+
+@@ -30,15 +32,14 @@ function showSelectedRepoDetails() {
+
+
+
+}
+
+
+
+
+
+
+
+window.onload = () => {
+
+
+
+  fetch('https://api.github.com/orgs/HackYourFuture/repos?per_page=100')
+
+
+
+  fetch(REPOSITORIES_URL)
+
+
+
+    .then(response => response.json())
+
+
+
+    .then((data) => {
+
+
+
+      repositories = data;
+
+
+
+
+
+
+
+      populateSelectList();
+
+
+
+      selectIndex(0);
+
+
+
+      showSelectedRepoDetails();
+
+
+
+    });
+
+
+
+};
+
+
+
+
+
+
+
+selectList.onchange = showSelectedRepoDetails;
+
+
+
+repoSelectElement.onchange = showSelectedRepoDetails;
+  </script>
+
+</body>
+
+
+
+</html>

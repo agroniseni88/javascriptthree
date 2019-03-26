@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        Hello <span id="name"></span>!
+    <script>
+
+
+        
+    
+        // function greeting(name){
+        //     alert('helo' +name);
+        // }
+        // function a(callback){
+        //     var name=prompt('your name');
+        //     callback(name);
+        // }
+        // a(greeting);
+        for (var i = 0; i < 11; i++) {
+console.log(i);
+}
+
+        const sayHello=(name)=>{
+            const text ='Hello,' +name;
+            return ()=>{
+                console.log(text);
+            };
+        };
+
+        sayHello('HackYourFuture');
+        const helloHYF=sayHello('HackYourFuture');
+        helloHYF();
+
+        //promission 
+        new Promise((resolve, reject) => {
+            	setTimeout(() => resolve('class'), 5000);
+                }).then((agron) => {
+                    console.log('Name received, updating DOM... ', agron);
+                	document.getElementById('name').innerHTML = agron;
+                    });
+        const ourPromise=fetch('https://jsonplaceholder.typicode.com/todos/1');
+
+        //how to write fetch code
+
+        new Promise((resolve, reject)=>{
+            setTimeout(()=>resolve('agroni'),5000);
+            }).then((elina)=>{
+                console.log('hajde mo qit naj sen, OK!', elina);
+                document.getElementById('name').innerHTML=elina;
+
+            });
+    </script>
+</body>
+</html>
